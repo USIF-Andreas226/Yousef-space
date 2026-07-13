@@ -46,6 +46,7 @@
     width: 400px;
     max-height: 520px;
     background: var(--bg-card);
+    backdrop-filter: blur(10px);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);

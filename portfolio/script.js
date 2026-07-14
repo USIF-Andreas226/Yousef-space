@@ -66,7 +66,8 @@ function initParticles() {
         }
     }
 
-    for (let i = 0; i < 80; i++) {
+    const PARTICLE_COUNT = window.innerWidth < 768 ? 28 : 48;
+    for (let i = 0; i < PARTICLE_COUNT; i++) {
         particles.push(new Particle());
     }
 
@@ -187,13 +188,13 @@ function initScrollAnimations() {
                 children.forEach((child, i) => {
                     setTimeout(() => {
                         child.classList.add('visible');
-                    }, i * 100);
+                    }, i * 60);
                 });
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: 0.05,
+        rootMargin: '0px 0px -40px 0px'
     });
 
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
@@ -282,6 +283,7 @@ function initParallax() {
 
 /* ===== 3D Tilt on Cards ===== */
 function initTilt() {
+    if (window.matchMedia('(hover: none)').matches) return;
     const cards = document.querySelectorAll('.project-card, .skill-category, .achievement-card');
     const MAX = 10;
     cards.forEach(card => {

@@ -12,6 +12,7 @@
         { topic: 'experience-wider', text: 'At Wider, a multinational company, Yousef works as an AI Engineer building backend AI agent infrastructure, knowledge graphs, and LLM extraction pipelines for production authentication and identity systems.' },
         { topic: 'experience-iclub', text: 'As Head of AI at iCLUB (Ain Shams University), Yousef leads AI initiatives, runs hands-on workshops on generative AI, deployment, and AI ethics, and mentors student developers building real-world ML projects.' },
         { topic: 'experience-kayfa', text: 'Yousef\'s most recent internship was at Kayfa, a multinational education company, where he built AI solutions for education and business — including a multilingual AI Sales Agent and a Student Analytics Dashboard.' },
+        { topic: 'project-loom', text: 'Loom CLI is a terminal-native multi-agent coding pipeline built with LangGraph. It orchestrates Thinker → Worker → Debugger agents, each using its own model provider (Anthropic, Groq, OpenRouter, NVIDIA). Features include TPM-aware exponential backoff, context compaction, and SQLite checkpointing for resuming long runs. It is open-source (MIT) and solo-built.' },
         { topic: 'project-sadeed', text: 'Sadeed is a multi-agent claim management system built with LangGraph. It uses semantic deduplication with pgvector, automated fraud detection, and an auto-retraining pipeline to keep models accurate over time.' },
         { topic: 'project-salesagent', text: 'The Kayfa AI Sales Agent is a multilingual (Arabic/English) LangGraph sales chatbot. It uses RAG over a 52-course catalog, scores leads, opens CRM tickets, and sends WhatsApp notifications through Twilio. It is deployed live on Streamlit Cloud.' },
         { topic: 'project-dashboard', text: 'The Kayfa Student Analytics Dashboard consolidated 7 multi-source LMS files, ran a 37-issue data quality audit, and delivered interactive Plotly EDA visualizations backed by a Jupyter cleaning pipeline.' },
@@ -150,6 +151,7 @@
             <button class="chatbot-quick-action" data-msg="What skills do you have?">Skills</button>
             <button class="chatbot-quick-action" data-msg="What is your education background?">Education</button>
             <button class="chatbot-quick-action" data-msg="Tell me about the Sadeed project">Sadeed</button>
+            <button class="chatbot-quick-action" data-msg="Tell me about Loom CLI">Loom CLI</button>
             <button class="chatbot-quick-action" data-msg="What are your achievements?">Achievements</button>
             <button class="chatbot-quick-action" data-msg="How can I contact you?">Contact</button>
         </div>

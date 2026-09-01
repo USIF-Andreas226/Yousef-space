@@ -29,6 +29,20 @@
         { topic: 'approach', text: 'Yousef\'s strengths are building end-to-end AI systems — from data cleaning and model training to agent orchestration and live deployment — with attention to data quality, evaluation, and production reliability.' },
     ];
 
+    // --- Fast-button curated offline responses (first-person, streaming, no API) ---
+    // Each key must exactly match the button's data-msg attribute
+    const QUICK_RESPONSES = {
+        "Tell me about yourself": "Hey there! 👋 I'm **Yousef Malak Ibrahim** — an **AI Engineer & ML Developer** based in Maadi, Cairo.\n\nI'm pursuing my **Bachelor's in Computer Science (Software Engineering) at Ain Shams University — GPA 3.5/4.0 (A-)** and currently working as an **Agentic AI Intern at Datalentech** and **AI Engineering Intern at BARQ Systems**, alongside my roles as **AI Engineer at Wider** and **Head of AI at iCLUB**.\n\nI build **production-ready Agentic AI systems** — RAG pipelines, multi-agent architectures (LangGraph), and LLMOps workflows — and I love turning research into reliable, real-world products. Ask me about my experience, projects, skills or how to contact me!",
+        "Tell me about your experience at Wider": "Here's my journey so far 🚀\n\n**Datalentech — Agentic AI Intern (Current):** I work on **Agentic AI & LLMOps** — designing agentic architectures & LLM workflows for multi-step execution, provider-agnostic LLM abstractions & model registries, structured **prompts/tools/responses/agent state**, **tool calling with versioned tools/prompts** (schemas + validation), **reasoning/guardrails/fallbacks**, **evaluation pipelines** (datasets, metrics, regression, self-correction), and **LLMOps** observability (tracing, monitoring, cost, latency) + context optimization.\n\n**BARQ Systems — AI Engineering Intern (Current, 4 weeks):** Shipped **production LLM features** — worked with LLM APIs, tokens & context windows, built **RAG** (embeddings, vector search, retrieval, contextual generation), integrated into a working app, and presented the end-to-end project on **Demo Day**.\n\n**Wider (2025–Present) — AI Engineer:** Backend AI agent infra, Knowledge Graphs & semantic metadata enrichment with LLM extraction pipelines, LangChain agents via REST APIs.\n\n**Kayfa — AI Engineer Intern:** Multilingual **LangGraph Sales Agent** (52-course RAG, lead scoring, CRM + Twilio WhatsApp) + **Student Analytics Dashboard** (7 LMS sources, 37-issue data audit, Plotly EDA).\n\n**iCLUB — Head of AI (2024–Present):** Leading AI strategy, workshops on generative AI/deployment/ethics, mentoring in Python & TensorFlow.",
+        "What are your top projects?": "My top builds — all end-to-end, production-oriented:\n\n**1. Sadeed — AI Claim Management** (`Django, LangGraph, pgvector, Celery, Redis, Docker`) — Multi-agent pipeline **Extractor → Investigator → Resolver → Explainer**, semantic deduplication with **pgvector HNSW + multilingual embeddings**, smart **OpenRouter routing**, fraud detection + auto-retraining loop.\n\n**2. Loom CLI — Multi-Agent Coding Pipeline** (`MIT, LangGraph`) — Terminal-native **Thinker → Worker → Debugger** agents, each with its own provider (Anthropic, Groq, OpenRouter, NVIDIA), **TPM-aware backoff, context compaction, SQLite checkpointing**.\n\n**3. Kayfa AI Sales Agent** (`LangGraph, RAG, MongoDB, Twilio, Streamlit`) — Multilingual **Arabic/English** sales bot, **RAG over 52 courses**, lead scoring, CRM tickets & **WhatsApp via Twilio** — live on Streamlit Cloud.\n\n**4. Kayfa Student Analytics Dashboard** (`Pandas, Plotly`) — Consolidated **7 LMS exports**, fixed **37 data-quality issues**, built interactive EDA.\n\nPlus: AI Travel Chatbot (n8n), Online Exam System (JavaFX), Satellite Land Classification (**EfficientNetB0 96.3%**), Forest Cover XGBoost (86.6%), and more — check the Projects section!",
+        "What skills do you have?": "My stack is built for **Agentic AI & production LLMs**:\n\n**AI & Agents:** `LangChain`, `LangGraph`, Multi-Agent Systems, `RAG`, Prompt Engineering, Knowledge Graphs\n\n**LLMOps:** Tracing & monitoring, Evaluation (datasets/metrics/regression), Tool calling & versioned prompts, Guardrails/Fallbacks, Context optimization, Cost/latency control\n\n**ML:** `Scikit-learn`, `TensorFlow`, `PyTorch`, `XGBoost`, `LightGBM`, SMOTE, EfficientNet/ResNet\n\n**Backend & Data:** `Django`, `FastAPI`, REST, Auth, `MongoDB`, `PostgreSQL`, `pgvector`, `Qdrant`, `Redis`, `Celery`, `Docker`\n\n**Automation:** `n8n`, `Twilio`, API orchestration\n\n**Languages & Tools:** `Python`, `Java`, `C#`, `C++`, `JavaScript`, `SQL`, `Pandas`, `Plotly`, `Streamlit`, `Jupyter`",
+        "What is your education background?": "I'm pursuing my **Bachelor of Computer Science, Software Engineering (2023–2027)** at **Ain Shams University — GPA 3.5/4.0 (A-)**.\n\nI also completed the **AI Agent Developer Course at Orange Digital Center (Feb 2026) — Grade 99.3%, 30 Hours** covering AI Agents, LLMs, Prompt Engineering, LangChain Basics, RAG & Vector Stores, Multi-Agent Systems, Deployment & Optimization, and Inter-Agent Communication.\n\nI love blending academic depth with shipping production systems at Datalentech, BARQ, and Wider.",
+        "Tell me about the Sadeed project": "I built **Sadeed — AI Claim Management System** as a **multi-agent LangGraph** pipeline: **Extractor → Investigator → Resolver → Explainer** for automated claim triage.\n\nHighlights I engineered:\n- **Semantic deduplication** with **pgvector HNSW** + `paraphrase-multilingual-mpnet` (Arabic/English)\n- **Smart LLM routing via OpenRouter** — dispatching simple vs. complex claims to cost-appropriate models\n- **Fraud detection engine** (rule-based anomaly + Supabase `fraud_patterns`)\n- **Auto-retraining loop** with Celery workers feeding rejected decisions to a reflection model for prompt optimization\n- **Stack:** `Django`, `LangGraph`, `pgvector`, `Celery`, `Redis`, `Docker` (multi-service + async queues) + K-Means analytics.\n\nIt's my most complete agentic + LLMOps showcase — check it at **github.com/USIF-Andreas/Sadeed**.",
+        "Tell me about Loom CLI": "I solo-built **Loom CLI — Multi-Agent Coding Pipeline** (`MIT` open-source) — a **terminal-native** coding agent powered by **LangGraph**.\n\nIt splits work across specialized agents: **Thinker → Worker → Debugger**, each with its own prompt, tools, and model provider. You can mix **Anthropic, Groq, OpenRouter, NVIDIA** mid-session.\n\nWhat I'm proud of:\n- **Provider-agnostic** — swap models mid-run\n- **TPM-aware exponential backoff**\n- **Context compaction** to stay in token budget\n- **SQLite checkpointing** to resume long runs\n\nLive at **github.com/USIF-Andreas** and demo: **lnkd.in/e_cGEztW**.",
+        "What are your achievements?": "Proud of these milestones 🏆\n\n**1st Place — NLP Project** at Ain Shams University — recognized for my applied natural language processing work.\n\n**2nd Place — ML Project Competition** at Ain Shams University — ranked 2nd among all ML projects.\n\n**99.3% — AI Agent Developer Course** (Orange Digital Center, 30 Hours) — top grade in AI Agents, LLMs, LangChain, RAG & Multi-Agent Systems.\n\nI also delivered and presented an end-to-end AI project on **Demo Day at BARQ Systems**, and I lead AI strategy as **Head of AI at iCLUB**.",
+        "How can I contact you?": "Let's connect! 📬\n\n**Email:** `yousefmalak55@gmail.com`\n**Phone:** `+20 127 541 6149`\n**Location:** Maadi, Cairo, Egypt\n**GitHub:** `github.com/USIF-Andreas`\n**LinkedIn:** `linkedin.com/in/yousef-malak-98026b287`\n\nTap **Email Me** on this page or use the contact form — I usually reply within a day and I'm **open to Agentic AI / LLM opportunities**!"
+    };
+
     const STOPWORDS = new Set(['the','a','an','and','or','is','are','was','were','to','of','in','on','for','with','my','me','i','you','your','what','who','how','do','does','did','can','have','has','had','at','from','about','tell','please','this','that','be','it','as','by','he','she','they','we','our','their','but','if','so','get','know','more','top','some','any','will','would','there','here','than','into','out','up','down','all','his','her','him','its','am','not','no']);
 
     function tokenize(str) {
@@ -237,7 +251,17 @@
         isTyping = true;
         showTyping();
 
-        // Try Vercel API first (OpenRouter), fallback to offline TF-IDF
+        // 1) Exact quick-button curated response (offline, instant)
+        if (QUICK_RESPONSES[message]) {
+            // Small delay to feel natural, then stream curated response
+            await new Promise(r => setTimeout(r, 180));
+            removeTyping();
+            streamMessage(QUICK_RESPONSES[message], 'bot');
+            isTyping = false;
+            return;
+        }
+
+        // 2) Try Vercel API first (OpenRouter), fallback to offline TF-IDF
         const apiAnswer = await tryApiRespond(message);
         removeTyping();
         if (apiAnswer) {
@@ -253,6 +277,16 @@
         addMessage(message, 'user');
         isTyping = true;
         showTyping();
+        // Fast buttons are ALWAYS offline curated metadata — no API, guaranteed instant streaming
+        const curated = QUICK_RESPONSES[message];
+        if (curated) {
+            await new Promise(r => setTimeout(r, 200));
+            removeTyping();
+            streamMessage(curated, 'bot');
+            isTyping = false;
+            return;
+        }
+        // Fallback (should never happen) — try API then TF
         const apiAnswer = await tryApiRespond(message);
         removeTyping();
         if (apiAnswer) {

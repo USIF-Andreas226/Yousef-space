@@ -106,11 +106,43 @@
     // State
     let isOpen = false;
     let isTyping = false;
+    // On Vercel the API is at /api/chat/send — try it first, fallback to offline TF if unavailable
+    const API_URL = window.CHATBOT_API_URL || '/api/chat/send';
+    const API_ENABLED = window.CHATBOT_API_ENABLED !== false; // set to false to force offline
+
+    async function tryApiRespond(message) {
+        if (!API_ENABLED) return null;
+        try {
+            const controller = new AbortController();
+            const t = setTimeout(() => controller.abort(), 4000);
+            const res = await fetch(API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message, sessionId }),
+                signal: controller.signal,
+            });
+            clearTimeout(t);
+            if (!res.ok) return null;
+            const data = await res.json();
+            if (data && data.response) return data.response;
+            return null;
+        } catch (e) {
+            return null;
+        }
+    }
 
     // Create stylesheet
     const styleLink = document.createElement('link');
     styleLink.rel = 'stylesheet';
-    styleLink.href = window.CHATBOT_CSS_URL || '/chatbot/chatbot-widget.css';
+    styleLink.href = window.CHATBOT_CSS_URL || 'chatbot/chatbot-widget.css';
+    // Fallback to absolute path if relative fails (Vercel outputDirectory handling)
+    styleLink.onerror = function() {
+        if (styleLink.href.indexOf('/chatbot/') === -1) return;
+        const alt = document.createElement('link');
+        alt.rel = 'stylesheet';
+        alt.href = '/chatbot/chatbot-widget.css';
+        document.head.appendChild(alt);
+    };
     document.head.appendChild(styleLink);
 
     // Create toggle button
@@ -126,7 +158,7 @@
     container.className = 'chatbot-container';
     container.innerHTML = `
         <div class="chatbot-header">
-            <div class="chatbot-avatar"><img src="/assets/logo.svg" alt="YMI"></div>
+            <div class="chatbot-avatar"><img src="assets/logo.svg" alt="YMI" onerror="this.src='/assets/logo.svg'"></div>
             <div class="chatbot-header-info">
                 <h4>Yousef's AI Assistant</h4>
                 <p>Ask about my experience, skills & projects</p>
@@ -203,32 +235,37 @@
         isTyping = true;
         showTyping();
 
-        // Fully client-side: TF-match against local info
-        setTimeout(() => {
-            removeTyping();
+        // Try Vercel API first (OpenRouter), fallback to offline TF-IDF
+        const apiAnswer = await tryApiRespond(message);
+        removeTyping();
+        if (apiAnswer) {
+            streamMessage(apiAnswer, 'bot');
+        } else {
             streamMessage(tfRespond(message), 'bot');
-            isTyping = false;
-        }, 200);
+        }
+        isTyping = false;
     }
 
-    function quickReply(message) {
+    async function quickReply(message) {
         if (isTyping || !message) return;
         addMessage(message, 'user');
         isTyping = true;
         showTyping();
-        // Same fast client-side TF engine as free-text input — no network wait.
-        setTimeout(() => {
-            removeTyping();
+        const apiAnswer = await tryApiRespond(message);
+        removeTyping();
+        if (apiAnswer) {
+            streamMessage(apiAnswer, 'bot');
+        } else {
             streamMessage(tfRespond(message), 'bot');
-            isTyping = false;
-        }, 250);
+        }
+        isTyping = false;
     }
 
     function addMessage(text, type, sources) {
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${type}`;
 
-        const avatar = type === 'bot' ? '<img src="/assets/logo.svg" alt="YMI" class="msg-logo">' : '<i class="fas fa-user"></i>';
+        const avatar = type === 'bot' ? '<img src="assets/logo.svg" alt="YMI" class="msg-logo" onerror="this.src=\'/assets/logo.svg\'">' : '<i class="fas fa-user"></i>';
 
         let html = `
             <div class="message-avatar">${avatar}</div>
@@ -248,7 +285,7 @@
         const msgDiv = document.createElement('div');
         msgDiv.className = `message ${type}`;
 
-        const avatar = type === 'bot' ? '<img src="/assets/logo.svg" alt="YMI" class="msg-logo">' : '<i class="fas fa-user"></i>';
+        const avatar = type === 'bot' ? '<img src="assets/logo.svg" alt="YMI" class="msg-logo" onerror="this.src=\'/assets/logo.svg\'">' : '<i class="fas fa-user"></i>';
         msgDiv.innerHTML = `<div class="message-avatar">${avatar}</div><div class="message-bubble"></div>`;
         messagesEl.appendChild(msgDiv);
         const bubble = msgDiv.querySelector('.message-bubble');
@@ -278,7 +315,7 @@
         typingDiv.className = 'message bot';
         typingDiv.id = 'typingIndicator';
         typingDiv.innerHTML = `
-            <div class="message-avatar"><img src="/assets/logo.svg" alt="YMI" class="msg-logo"></div>
+            <div class="message-avatar"><img src="assets/logo.svg" alt="YMI" class="msg-logo" onerror="this.src='/assets/logo.svg'"></div>
             <div class="message-typing">
                 <span></span><span></span><span></span>
             </div>

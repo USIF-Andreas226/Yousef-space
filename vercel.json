@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "buildCommand": "npm --prefix portfolio/chatbot install && npm --prefix portfolio/chatbot run build",
+  "outputDirectory": "portfolio",
+  "installCommand": "npm --prefix portfolio/chatbot install",
+  "framework": null,
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/chatbot/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

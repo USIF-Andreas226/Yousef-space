@@ -9,6 +9,8 @@
     // Local knowledge base (split into passages for TF-IDF matching)
     const MY_INFO = [
         { topic: 'intro', text: 'Yousef Malak Ibrahim is an AI Engineer and ML Developer based in Cairo, Egypt, currently pursuing a Bachelor of Computer Science at Ain Shams University (GPA 3.5/4.0, A-). He is passionate about building production-ready AI agent systems and large language model applications.' },
+        { topic: 'experience-datalentech', text: 'As Agentic AI Intern at Datalentech (Current), Yousef works on Agentic AI systems and LLMOps workflows, designing agentic AI architectures and LLM workflows for multi-step task execution, provider-agnostic LLM abstractions and model registries, structured prompts/tools/responses/agent state, tool calling with versioned tools/prompts and validation, configurable reasoning/guardrails/fallbacks, LLM evaluation workflows with datasets/metrics/regression/self-correction, LLMOps tracing/monitoring/cost/latency/observability, and context management optimization.' },
+        { topic: 'experience-barq', text: 'As AI Engineering Intern at BARQ Systems (Current, 4-week), Yousef completed a production-oriented LLM internship: LLM APIs/tokens/context windows/prompt engineering, structured prompts and LLM evaluation with test sets/scoring/regression, RAG with embeddings/vector search/retrieval/contextual generation, integrated LLM+retrieval into a working AI app with testing/monitoring/documentation/hardening, and delivered an end-to-end AI project presented on Demo Day.' },
         { topic: 'experience-wider', text: 'At Wider, a multinational company, Yousef works as an AI Engineer building backend AI agent infrastructure, knowledge graphs, and LLM extraction pipelines for production authentication and identity systems.' },
         { topic: 'experience-iclub', text: 'As Head of AI at iCLUB (Ain Shams University), Yousef leads AI initiatives, runs hands-on workshops on generative AI, deployment, and AI ethics, and mentors student developers building real-world ML projects.' },
         { topic: 'experience-kayfa', text: 'Yousef\'s most recent internship was at Kayfa, a multinational education company, where he built AI solutions for education and business — including a multilingual AI Sales Agent and a Student Analytics Dashboard.' },
@@ -64,7 +66,7 @@
             return MY_INFO.find(p => p.topic === 'intro').text;
         }
         if (/(what can you|how (can|do) you|help me|need help)/.test(t)) {
-            return "I can answer questions about Yousef — his experience (Wider, iCLUB, Kayfa), projects (Sadeed, Kayfa AI Sales Agent, Student Analytics), skills, education, achievements, languages, and contact info. Try a quick button or ask anything!";
+            return "I can answer questions about Yousef — his experience (Datalentech Agentic AI, BARQ Systems, Wider, iCLUB, Kayfa), projects (Sadeed, Kayfa AI Sales Agent, Student Analytics), skills, education, achievements, languages, and contact info. Try a quick button or ask anything!";
         }
         return null;
     }

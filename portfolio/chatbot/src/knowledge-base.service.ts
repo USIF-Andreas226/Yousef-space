@@ -25,6 +25,29 @@ Bachelor of Computer Science, Software Engineering, 2023-2027
 Ain Shams University (ASU), GPA: 3.4 out of 4.0 (Very Good)
 
 WORK EXPERIENCE
+Agentic AI Intern at Datalentech, Present - Current (Agentic AI & LLMOps)
+- Worked on Agentic AI systems and LLMOps workflows, focusing on designing reliable and production-oriented LLM applications
+- Designed and analyzed agentic AI architectures and LLM workflows for multi-step task execution
+- Worked with provider-agnostic LLM abstractions and model registries to support flexible model selection and integration
+- Developed structured approaches for prompts, tools, responses, and agent state, with emphasis on maintainability and consistency
+- Worked with tool calling and versioned tools/prompts, applying structured schemas and validation to AI workflows
+- Explored configurable reasoning, guardrails, fallbacks, and error-handling strategies to improve agent reliability
+- Designed LLM evaluation workflows, including evaluation datasets, quality metrics, regression testing, and self-correction assessment
+- Applied LLMOps practices covering tracing, monitoring, cost control, latency, and production observability
+- Worked on context management and optimization to improve LLM workflow efficiency and reduce unnecessary model usage
+- Applied modular architecture, separation of concerns, validation, testing, and maintainable system design
+- Gained hands-on experience with complete lifecycle of agentic system from architecture and experimentation to evaluation and production readiness
+
+AI Engineering Intern at BARQ Systems, Present - Current (4-Week Production LLM Internship)
+- Completed 4-week AI Engineering internship focused on building and shipping production-oriented LLM features
+- Worked with LLM APIs, tokens, context windows, and prompt engineering
+- Designed structured prompts and LLM evaluation workflows using test sets, scoring, and regression checks
+- Built RAG workflows using embeddings, vector search, document retrieval, and contextual generation
+- Integrated LLM and retrieval components into a working AI application
+- Applied production practices including testing, monitoring, documentation, and workflow hardening
+- Worked through complete AI feature lifecycle from prompt design and evaluation to integration and delivery
+- Delivered and documented end-to-end AI project and presented solution during Demo Day
+
 AI Engineer at Wider (Multinational Company), 2025 to Present
 - Built and deployed backend AI agent infrastructure handling production authentication flows
 - Implemented Knowledge Graph systems with semantic metadata enrichment using LLM extraction pipelines

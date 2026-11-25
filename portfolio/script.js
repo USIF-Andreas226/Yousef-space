@@ -3,14 +3,12 @@
    ========================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    initParticles();
-    initCursorGlow();
     initNavbar();
     initScrollAnimations();
     initCounters();
     initContactForm();
     initSmoothScroll();
-    initParallax();
+    initProjectsToggle();
     initTilt();
 });
 
@@ -205,10 +203,16 @@ function initScrollAnimations() {
 /* ===== Counter Animation ===== */
 function initCounters() {
     const counters = document.querySelectorAll('.stat-number');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const counterObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const target = +entry.target.getAttribute('data-target');
+                if (reducedMotion) {
+                    entry.target.textContent = target;
+                    counterObserver.unobserve(entry.target);
+                    return;
+                }
                 const duration = 2000;
                 const increment = target / (duration / 16);
                 let current = 0;
@@ -235,36 +239,71 @@ function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
 
+    const nameInput = form.querySelector('#name');
+    const emailInput = form.querySelector('#email');
+    const messageInput = form.querySelector('#message');
+    const statusEl = form.querySelector('#formStatus');
+
+    const setStatus = (text, kind) => {
+        if (!statusEl) return;
+        statusEl.textContent = text;
+        statusEl.className = 'form-status' + (kind ? ` is-${kind}` : '');
+    };
+
+    const clearInvalid = (input) => {
+        if (input) input.removeAttribute('aria-invalid');
+    };
+
+    [nameInput, emailInput, messageInput].forEach(input => {
+        if (input) {
+            input.addEventListener('input', () => clearInvalid(input));
+        }
+    });
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const btn = form.querySelector('button[type="submit"]');
-        const originalText = btn.innerHTML;
+        const name = nameInput ? nameInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const message = messageInput ? messageInput.value.trim() : '';
 
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-        btn.disabled = true;
+        [nameInput, emailInput, messageInput].forEach(clearInvalid);
 
-        setTimeout(() => {
-            btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            btn.style.background = 'var(--secondary)';
+        if (!name) {
+            nameInput.setAttribute('aria-invalid', 'true');
+            nameInput.focus();
+            setStatus('Please enter your name before sending.', 'error');
+            return;
+        }
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            emailInput.setAttribute('aria-invalid', 'true');
+            emailInput.focus();
+            setStatus('Please enter a valid email address.', 'error');
+            return;
+        }
+        if (!message) {
+            messageInput.setAttribute('aria-invalid', 'true');
+            messageInput.focus();
+            setStatus('Please write a message before sending.', 'error');
+            return;
+        }
 
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-                btn.disabled = false;
-                form.reset();
-            }, 3000);
-        }, 2000);
+        const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:yousefmalak55@gmail.com?subject=${subject}&body=${body}`;
+
+        setStatus('Opening your email client—or write directly to yousefmalak55@gmail.com.', 'success');
     });
 }
 
 /* ===== Smooth Scroll for anchor links ===== */
 function initSmoothScroll() {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
             }
         });
     });
@@ -283,7 +322,7 @@ function initParallax() {
 
 /* ===== 3D Tilt on Cards ===== */
 function initTilt() {
-    if (window.matchMedia('(hover: none)').matches) return;
+    if (window.matchMedia('(hover: none)').matches || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const cards = document.querySelectorAll('.project-card, .skill-category, .achievement-card');
     const MAX = 10;
     cards.forEach(card => {
@@ -301,7 +340,7 @@ function initTilt() {
 
 /* ===== Typing Effect for Hero ===== */
 const heroSubtitle = document.querySelector('.hero-subtitle');
-if (heroSubtitle) {
+if (heroSubtitle && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const originalText = heroSubtitle.textContent;
     heroSubtitle.textContent = '';
     let charIndex = 0;
@@ -331,3 +370,21 @@ const timelineObserver = new IntersectionObserver((entries) => {
 document.querySelectorAll('.timeline-item').forEach(item => {
     timelineObserver.observe(item);
 });
+
+/* ===== Projects Archive Toggle ===== */
+function initProjectsToggle() {
+    const toggle = document.getElementById('projectsToggle');
+    const archive = document.getElementById('moreProjects');
+    if (!toggle || !archive) return;
+
+    const label = toggle.querySelector('span');
+    toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        const nextExpanded = !expanded;
+        toggle.setAttribute('aria-expanded', String(nextExpanded));
+        archive.hidden = !nextExpanded;
+        if (label) {
+            label.textContent = nextExpanded ? 'Show Fewer Projects' : 'Show 8 More Projects';
+        }
+    });
+}
